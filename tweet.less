@@ -6,9 +6,12 @@
     @twitter-ltgray: #f5f8fa;
     @twitter-black: #292f33;
     @twitter-blue: #0084B4;
+
     @twitter-radius: 5px;
     
     @twitter-border: ~'1px solid @{twitter-gray}';
+
+    @twitter-transition: 100ms;
     
     border: @twitter-border;
     border-top: 0;
@@ -20,20 +23,19 @@
     .tweets & {
         &:first-child {
             border-top: @twitter-border;
-            .border-radius(@twitter-radius @twitter-radius 0 0);
+            border-radius: @twitter-radius @twitter-radius 0 0;
+            background-clip: padding-box;
         }
         &:last-child {
-            .border-radius(0 0 @twitter-radius @twitter-radius);
+            border-radius: 0 0 @twitter-radius @twitter-radius;
+            background-clip: padding-box;
         }
     } 
     
-    .twitter-transition {
-        .transition(100ms)
-    }
     &, * {
-        .twitter-transition;
+        transition: @twitter-transition;
         &:hover {
-            .twitter-transition
+            transition: @twitter-transition;
         }
     }
     
@@ -54,7 +56,8 @@
     }
     .image {
         height: 0;
-        .border-radius(@twitter-radius)
+        border-radius: @twitter-radius;
+        background-clip: padding-box;
     }
     
     .tweet-meta {
