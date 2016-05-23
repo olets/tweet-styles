@@ -1,0 +1,46 @@
+{#
+    - goes with tweet.less 
+    - wrap `.tweet`s in a `.tweets`
+#}
+<div class="tweet">
+
+    {% set source = item.user %}
+    {% set author = source %}
+
+    {% set tweet = item %}
+    {% if item.retweeted_status %}
+        {% set tweet = item.retweeted_status %}
+    {% endif %}
+
+    <div class="tweet-meta">
+        {% if item.retweeted_status %}
+            <a href="https://twitter.com/{{item.user.screen_name}}">
+                <span class="retweeted">
+                    {{item.user.name}} Retweeted
+                </span>
+            </a>
+        {% endif %}
+        <a href="https://twitter.com/{{tweet.user.screen_name}}">
+            <span class="user-name">{{tweet.user.name}}</span> <span class="no-hover">@{{tweet.user.screen_name}}</span>
+        </a>
+        &bull;
+        <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}">
+            <span>
+                {{ tweet.created_at|date('F d') }}
+            </span>
+        </a>
+    </div>
+    <div class="tweet-text">
+        {{ tweet.text|autolink }}
+    </div>
+    {% if item.entities.media %}
+        {% for media in item.entities.media %}
+        <div class="tweet-media">
+            {% set ratio = media.sizes.large.h / media.sizes.large.w %}
+            <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}">
+                <div class="image" style="background-image:url({{media.media_url_https}}); padding-top: calc(100% * {{ratio}})"></div>
+            </a>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>

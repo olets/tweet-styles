@@ -1,0 +1,100 @@
+// goes with tweet.twig
+
+.tweet {
+    @twitter-dkgray: #8899a6;
+    @twitter-gray: #e1e8ed;
+    @twitter-ltgray: #f5f8fa;
+    @twitter-black: #292f33;
+    @twitter-blue: #0084B4;
+    @twitter-radius: 5px;
+    
+    @twitter-border: ~'1px solid @{twitter-gray}';
+    
+    border: @twitter-border;
+    border-top: 0;
+    padding: 10px;
+    line-height: 1.5;
+    position: relative;
+    z-index: 0;
+    
+    .tweets & {
+        &:first-child {
+            border-top: @twitter-border;
+            .border-radius(@twitter-radius @twitter-radius 0 0);
+        }
+        &:last-child {
+            .border-radius(0 0 @twitter-radius @twitter-radius);
+        }
+    } 
+    
+    .twitter-transition {
+        .transition(100ms)
+    }
+    &, * {
+        .twitter-transition;
+        &:hover {
+            .twitter-transition
+        }
+    }
+    
+    &:hover {
+        background: @twitter-ltgray;
+    }
+    
+    span {
+        white-space: nowrap;
+    }
+    a {
+        &:hover {
+            *:not(.no-hover) {
+                color: @twitter-blue;
+                text-decoration: underline;
+            }
+        }
+    }
+    .image {
+        height: 0;
+        .border-radius(@twitter-radius)
+    }
+    
+    .tweet-meta {
+        font-size: 13px;
+        color: @twitter-dkgray;
+        margin-bottom: 10px
+    }
+        .retweeted {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .user-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: @twitter-black;
+        }
+        .date {
+            &:before {
+                content:'\2022'
+            }
+        }
+    
+    .tweet-text {
+        font-size: 16px;
+        color: @twitter-black;
+        a {
+            color: @twitter-blue;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .tweet-media {
+        margin-top: 10px;
+        .image {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
