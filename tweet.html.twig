@@ -37,7 +37,17 @@
         </a>
     </div>
     <div class="tweet-text">
-        {{ tweet.text|autolink }}
+        {{ tweet.text
+            |regex_replace(
+                '#\\b([\\w\\d]+)\\b',
+                '<a class="tweet-hashtag" href="https://twitter.com/hashtag/$1?src=hash">#$1</a>'
+            )
+            |regex_replace(
+                '@\\b([\\w\\d]+)\\b',
+                '<a class="tweet-user" href="https://twitter.com/$1">@$1</a>'
+            )
+            |autolink
+        }}
     </div>
     {% if item.entities.media %}
         {% for media in item.entities.media %}
