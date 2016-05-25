@@ -60,6 +60,8 @@
     // <twitter's values>
     // don't change these
     //
+    @twitter-green: #19CF86;
+    @twitter-red: #E81C4F;
     @twitter-dkgray: #8899a6;
     @twitter-gray: #e1e8ed;
     @twitter-ltgray: #f5f8fa;
@@ -190,6 +192,43 @@
         .image {
             width: 100%;
             height: auto
+        }
+    }
+    .tweet-intents {
+        margin-top: 10px;
+        a {
+            display: inline-block;
+            margin-right: 10px;
+            
+            @height: 16;
+            @factor: @height / 72;
+            fill: #AAB8C2;
+            width: 65px * @factor;
+            height: 72px * @factor;
+            
+            transition: 0 !important;
+            &:hover {
+                fill: @twitter-blue;
+                transition: 0 !important
+            }
+            &:active {
+                .opacity(.5)
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+            &.retweet {
+                width: 75px * @factor;
+                &:hover {
+                    fill: @twitter-green;
+                }
+            }
+            &.like {
+                width: 54px * @factor;
+                &:hover {
+                    fill: @twitter-red;
+                }
+            }
         }
     }
 }
