@@ -117,6 +117,13 @@
     @twitter-border: ~'@{tweet-border-weight} @{tweet-border-style} @{tweet-border-color}';
     border: @twitter-border;
     border-top: 0;
+    
+    transition: @tweet-transition;
+    &:hover {
+        background: @tweet-hover-bg;
+        transition: @tweet-transition
+    }
+    
     .tweets & {
         &:first-child, &:last-child {
             background-clip: padding-box
@@ -128,17 +135,6 @@
         &:last-child {
             border-radius: 0 0 @tweet-radius @tweet-radius
         }
-    } 
-    
-    &, * {
-        transition: @tweet-transition;
-        &:hover {
-            transition: @tweet-transition
-        }
-    }
-    
-    &:hover {
-        background: @tweet-hover-bg
     }
     
     span {
@@ -199,7 +195,7 @@
         margin-top: 10px;
         a {
             display: inline-block;
-            margin-right: 10px;
+            margin-right: 8px;
             
             @height: 16;
             @factor: @height / 72;
@@ -207,10 +203,14 @@
             width: 65px * @factor;
             height: 72px * @factor;
             
-            transition: 0 !important;
+            &, * {
+                transition: 0ms;
+                &:hover {
+                    transition: 0ms
+                }
+            }
             &:hover {
                 fill: @twitter-blue;
-                transition: 0 !important
             }
             &:active {
                 .opacity(.5)
