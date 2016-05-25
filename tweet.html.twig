@@ -5,10 +5,15 @@
     v1 supports
     - text tweets,
     - retweets
-    - attached media
+    - attached media (if `images` is 0 or true)
 
 #}
 <div class="tweet">
+
+    {% set include_images = false %}
+    {% if images == 'true' or images == '1' %}
+        {% set include_images = true %}
+    {% endif %}
 
     {% set source = item.user %}
     {% set author = source %}
@@ -49,7 +54,7 @@
             |autolink
         }}
     </div>
-    {% if item.entities.media %}
+    {% if include_images == 'true' and item.entities.media %}
         {% for media in item.entities.media %}
         <div class="tweet-media">
             {% set ratio = media.sizes.large.h / media.sizes.large.w %}
