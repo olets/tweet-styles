@@ -44,7 +44,7 @@
             )
             |regex_replace(
                 '@\\b([\\w\\d]+)\\b',
-                '<a class="tweet-user" href="https://twitter.com/$1">@$1</a>'
+                '<a class="tweet-at" href="https://twitter.com/$1">@$1</a>'
             )
             |autolink
         }}

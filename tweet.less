@@ -27,9 +27,7 @@
     .tweet-meta-styles() {// e.g. font size and color
         .twitter-meta-styles
     }
-    .tweet-meta-link-styles() {
-        .twitter-meta-link-styles
-    }
+    .tweet-meta-link-styles() {}
     .tweet-meta-link-hover-styles() {// e.g. color, decoration
         .twitter-meta-link-hover-styles
     }
@@ -42,6 +40,8 @@
     .tweet-text-link-styles() {// styles applied to links inside the tweet text, e.g. color, hover effects
         .twitter-text-link-styles
     }
+    .tweet-text-hashtag-link-styles(){}
+    .tweet-text-at-link-styles(){}
     .tweet-date-styles() {// e.g. precede with a bullet
         .twitter-date-styles
     }
@@ -72,7 +72,6 @@
         font-size: 13px;
         color: @twitter-dkgray;
     }
-    .twitter-meta-link-styles() {}
     .twitter-meta-link-hover-styles() {
         color: @twitter-blue;
         text-decoration: underline
@@ -173,6 +172,12 @@
             // display: inline-block;
             // position: relative;
             // z-index: 1;
+            &.tweet-hashtag {
+                .tweet-text-hashtag-link-styles
+            }
+            &.tweet-at {
+                .tweet-text-at-link-styles
+            }
         }
     }
     .tweet-media {
