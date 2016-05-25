@@ -48,9 +48,10 @@
     }
     .tweet-text-hashtag-link-styles(){}
     .tweet-text-at-link-styles(){}
-    .tweet-date-styles() {// e.g. precede with a bullet
-        .twitter-date-styles
+    .tweet-data-separator-styles() {// e.g. before content bullet
+        .twitter-date-separator-styles
     }
+    .tweet-date-styles() {}
     //</site values>
 
 
@@ -99,7 +100,7 @@
             text-decoration: underline
         }
     }
-    .twitter-date-styles(){
+    .twitter-date-separator-styles(){
         &:before {
             content:'\2022'
         }
@@ -164,6 +165,10 @@
         }
         .tweet-user-name {
             .tweet-meta-user-name-styles
+        }
+        .tweet-date-separator {
+            display: inline-block;
+            .tweet-data-separator-styles
         }
         .tweet-date {
             .tweet-date-styles

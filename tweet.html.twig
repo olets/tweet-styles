@@ -34,9 +34,9 @@
         <a href="https://twitter.com/{{tweet.user.screen_name}}">
             <span class="tweet-user-name">{{tweet.user.name}}</span> <span class="tweet-no-hover">@{{tweet.user.screen_name}}</span>
         </a>
-        &bull;
+        <div class="tweet-date-separator"></div>
         <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}">
-            <span>
+            <span class="tweet-date">
                 {{ tweet.created_at|date('F d') }}
             </span>
         </a>
