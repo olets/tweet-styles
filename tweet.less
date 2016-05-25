@@ -1,103 +1,185 @@
+// The entry stub for importing less files
+@import 'lib/all';
+@import 'site/all';
+
+
 // goes with tweet.twig
 
 .tweet {
+    //
+    // <site values>
+    // customize these
+    // twitter's defaults are used as the default
+    //
+    
+    // colors: all of these are required
+    @tweet-hover-bg: @twitter-hover-bg;
+    @tweet-radius: @twitter-radius;
+    @tweet-transition: @twitter-transition;
+    @tweet-border-weight: @twitter-border-weight;
+    @tweet-border-style: @twitter-border-style;
+    @tweet-border-color: @twitter-border-color;
+    
+    padding: @twitter-padding;
+    line-height: @twitter-line-height;
+    
+    //mixins: all of these are required (but they can be empty)
+    .tweet-meta-styles() {// e.g. font size and color
+        .twitter-meta-styles
+    }
+    .tweet-meta-link-styles() {
+        .twitter-meta-link-styles
+    }
+    .tweet-meta-link-hover-styles() {// e.g. color, decoration
+        .twitter-meta-link-hover-styles
+    }
+    .tweet-meta-user-name-styles() {// e.g. font size, weight, color
+        .twitter-meta-user-name-styles
+    }
+    .tweet-text-styles() {//e.g. font size, color
+        .twitter-text-styles
+    }
+    .tweet-text-link-styles() {// styles applied to links inside the tweet text, e.g. color, hover effects
+        .twitter-text-link-styles
+    }
+    .tweet-date-styles() {// e.g. precede with a bullet
+        .twitter-date-styles
+    }
+    //</site values>
+
+
+
+
+    // --------------------------------
+    //
+    // <twitter's values>
+    // don't change these
+    //
     @twitter-dkgray: #8899a6;
     @twitter-gray: #e1e8ed;
     @twitter-ltgray: #f5f8fa;
     @twitter-black: #292f33;
     @twitter-blue: #0084B4;
-
+    @twitter-hover-bg: @twitter-ltgray;
     @twitter-radius: 5px;
-    
-    @twitter-border: ~'1px solid @{twitter-gray}';
-
     @twitter-transition: 100ms;
-    
-    border: @twitter-border;
-    border-top: 0;
-    padding: 10px;
-    line-height: 1.5;
+    @twitter-line-height: 1.5;
+    @twitter-padding: 10px;
+    @twitter-border-weight: 1px;
+    @twitter-border-style: solid;
+    @twitter-border-color: @twitter-gray;
+    .twitter-meta-styles() {
+        font-size: 13px;
+        color: @twitter-dkgray;
+    }
+    .twitter-meta-link-styles() {}
+    .twitter-meta-link-hover-styles() {
+        color: @twitter-blue;
+        text-decoration: underline
+    }
+    .twitter-meta-user-name-styles {
+        font-size: 14px;
+        font-weight: 700;
+        color: @twitter-black
+    }
+    .twitter-text-styles() {
+        font-size: 16px;
+        color: @twitter-black;
+    }
+    .twitter-text-link-styles() {
+        color: @twitter-blue;
+        &:hover {
+            text-decoration: underline
+        }
+    }
+    .twitter-date-styles(){
+        &:before {
+            content:'\2022'
+        }
+    }
+    // </twitter's values>
+
+
+    // --------------------------------
+    //
+    // tweet styles
+    // in almost all cases, these styles won't need to be fiddled with
+    //
     position: relative;
     z-index: 0;
-    
+    @twitter-border: ~'@{tweet-border-weight} @{tweet-border-style} @{tweet-border-color}';
+    border: @twitter-border;
+    border-top: 0;
     .tweets & {
+        &:first-child, &:last-child {
+            background-clip: padding-box
+        }
         &:first-child {
             border-top: @twitter-border;
-            border-radius: @twitter-radius @twitter-radius 0 0;
-            background-clip: padding-box;
+            border-radius: @tweet-radius @tweet-radius 0 0
         }
         &:last-child {
-            border-radius: 0 0 @twitter-radius @twitter-radius;
-            background-clip: padding-box;
+            border-radius: 0 0 @tweet-radius @tweet-radius
         }
     } 
     
     &, * {
-        transition: @twitter-transition;
+        transition: @tweet-transition;
         &:hover {
-            transition: @twitter-transition;
+            transition: @tweet-transition
         }
     }
     
     &:hover {
-        background: @twitter-ltgray;
+        background: @tweet-hover-bg
     }
     
     span {
-        white-space: nowrap;
+        white-space: nowrap
     }
     a {
+        .tweet-meta-link-styles;
         &:hover {
             *:not(.no-hover) {
-                color: @twitter-blue;
-                text-decoration: underline;
+                .tweet-meta-link-hover-styles;
             }
         }
     }
     .image {
         height: 0;
-        border-radius: @twitter-radius;
-        background-clip: padding-box;
+        border-radius: @tweet-radius;
+        background-clip: padding-box
     }
     
     .tweet-meta {
-        font-size: 13px;
-        color: @twitter-dkgray;
-        margin-bottom: 10px
+        margin-bottom: 10px;
+        .tweet-meta-styles
     }
         .retweeted {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 5px
         }
         .user-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: @twitter-black;
+            .tweet-meta-user-name-styles
         }
         .date {
-            &:before {
-                content:'\2022'
-            }
+            .tweet-date-styles
         }
     
     .tweet-text {
-        font-size: 16px;
-        color: @twitter-black;
+        .tweet-text-styles;
         a {
-            color: @twitter-blue;
-            display: inline-block;
-            position: relative;
-            z-index: 1;
-            &:hover {
-                text-decoration: underline;
-            }
+            .tweet-text-link-styles;
+            // display: inline-block;
+            // position: relative;
+            // z-index: 1;
         }
     }
     .tweet-media {
         margin-top: 10px;
         .image {
             width: 100%;
-            height: auto;
+            height: auto
         }
     }
 }
