@@ -143,7 +143,7 @@
     a {
         .tweet-meta-link-styles;
         &:hover {
-            *:not(.no-hover) {
+            *:not(.tweet-no-hover) {
                 .tweet-meta-link-hover-styles;
             }
         }
@@ -158,14 +158,14 @@
         margin-bottom: 10px;
         .tweet-meta-styles
     }
-        .retweeted {
+        .tweet-retweeted {
             display: block;
             margin-bottom: 5px
         }
-        .user-name {
+        .tweet-user-name {
             .tweet-meta-user-name-styles
         }
-        .date {
+        .tweet-date {
             .tweet-date-styles
         }
     
@@ -186,7 +186,7 @@
     }
     .tweet-media {
         margin-top: 10px;
-        .image {
+        .tweet-image {
             width: 100%;
             height: auto
         }
@@ -218,13 +218,13 @@
             &:last-child {
                 margin-right: 0;
             }
-            &.retweet {
+            &.tweet-retweet {
                 width: 75px * @factor;
                 &:hover {
                     fill: @twitter-green;
                 }
             }
-            &.like {
+            &.tweet-like {
                 width: 54px * @factor;
                 &:hover {
                     fill: @twitter-red;
