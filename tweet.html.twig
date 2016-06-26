@@ -8,13 +8,18 @@
     - links in the tweet
     - attached media (if `images` is 0 or true)
     - web intents
+    - avatar support
 
 #}
 <div class="tweet">
-    {% set include_images, links_in_tweet = false, true %}
-    {% if images == 'true' or images == '1' %}
+    {% set include_images, show_avatars, links_in_tweet = false, false, true %}
+    {% if images == true or images == '1' %}
         {% set include_images = true %}
     {% endif %}
+    {% if avatars == true or avatars == '1' %}
+        {% set show_avatars = true %}
+    {% endif %}
+        {% set show_avatars = true %}
 
     {% set source, author = item.user, source %}
 
@@ -25,21 +30,49 @@
 
     <div class="tweet-meta">
         {% if item.retweeted_status %}
-            <a href="https://twitter.com/{{item.user.screen_name}}">
                 <span class="tweet-retweeted">
-                    {{item.user.name}} Retweeted
-                </span>
+            <a href="https://twitter.com/{{item.user.screen_name}}">
+                    {{item.user.name}}{% spaceless %}
+                        {% if item.user.verified == true %}
+                        <svg class="tweet-verified" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72">
+                          {#<path fill="none" d="M0 0h64v72H0z"/>#}
+                          <path class="tweet-badge" d="M3 37.3c0 4 2.2 7.7 5.4 9.6v1.3c0 6 4.6 11 10.4 11 1.3 0 2.6-.2 3.7-.7 1.7 3.7 5.3 6.2 9.5 6.2s7.8-2.6 9.5-6.3c1 .5 2.4.7 3.7.7 5.8 0 10.5-5 10.5-11V47c3-2 5.3-5.6 5.3-9.7 0-4.4-2.4-8-6-10 .5-1 .7-2.4.7-3.8 0-6-4.7-11-10.5-11-1.3 0-2.6.2-3.7.6-1.7-3.4-5.3-6-9.5-6s-7.8 2.6-9.5 6c-1-.2-2.4-.4-3.7-.4-5.8 0-10.5 5-10.5 11 0 1.4.2 2.7.6 4-3.7 1.7-6 5.4-6 9.8z"/>
+                          <path class="tweet-check" fill="#FFF" d="M18 39l7 7c.5.6 1.2 1 2 1s1.5-.4 2-1c.5-.3 16-16 16-16 1.3-1 1.3-3 0-4.2-1-1-3-1-4 0l-14 14-5-5c-1-1-3-1-4 0-1.3 1.2-1.3 3 0 4.3z"/>
+                        </svg>
+                        {% endif %}
+            {% endspaceless %} Retweeted
             </a>
+                </span>
         {% endif %}
-        <a href="https://twitter.com/{{tweet.user.screen_name}}">
-            <span class="tweet-user-name">{{tweet.user.name}}</span> <span class="tweet-no-hover">@{{tweet.user.screen_name}}</span>
-        </a>
-        <div class="tweet-date-separator"></div>
-        <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}">
-            <span class="tweet-date">
-                {{ tweet.created_at|date('F d') }}
-            </span>
-        </a>
+        <div class="tweet-user{% if show_avatars %}-with-avatar{% endif %}">
+            {% if show_avatars %}
+            <div class="tweet-user-avatar">
+                <a href="https://twitter.com/{{tweet.user.screen_name}}">
+                    <img src="{{tweet.user.profile_image_url_https}}" alt="{{tweet.user.screen_name}}">
+                </a>
+            </div>
+            {% endif %}
+            <div class="tweet-user-info">
+                <a href="https://twitter.com/{{tweet.user.screen_name}}">
+                    <span class="tweet-user-name">{% spaceless %}
+                        {{tweet.user.name}}
+                        {%- if tweet.user.verified == true -%}
+                        <svg class="tweet-verified" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72">
+                          {#<path fill="none" d="M0 0h64v72H0z"/>#}
+                          <path class="tweet-badge" fill="#88c9f9" d="M3 37.3c0 4 2.2 7.7 5.4 9.6v1.3c0 6 4.6 11 10.4 11 1.3 0 2.6-.2 3.7-.7 1.7 3.7 5.3 6.2 9.5 6.2s7.8-2.6 9.5-6.3c1 .5 2.4.7 3.7.7 5.8 0 10.5-5 10.5-11V47c3-2 5.3-5.6 5.3-9.7 0-4.4-2.4-8-6-10 .5-1 .7-2.4.7-3.8 0-6-4.7-11-10.5-11-1.3 0-2.6.2-3.7.6-1.7-3.4-5.3-6-9.5-6s-7.8 2.6-9.5 6c-1-.2-2.4-.4-3.7-.4-5.8 0-10.5 5-10.5 11 0 1.4.2 2.7.6 4-3.7 1.7-6 5.4-6 9.8z"/>
+                          <path class="tweet-check" fill="#FFF" d="M18 39l7 7c.5.6 1.2 1 2 1s1.5-.4 2-1c.5-.3 16-16 16-16 1.3-1 1.3-3 0-4.2-1-1-3-1-4 0l-14 14-5-5c-1-1-3-1-4 0-1.3 1.2-1.3 3 0 4.3z"/>
+                        </svg>
+                        {% endif %}
+                    {% endspaceless %}</span> <span class="tweet-no-hover">@{{tweet.user.screen_name}}</span>
+                </a>
+                <div class="tweet-date-separator"></div>
+                <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id}}">
+                    <span class="tweet-date">
+                        {{ tweet.created_at|date('F d') }}
+                    </span>
+                </a>
+            </div>
+        </div>
     </div>
     <div class="tweet-text">
         {{ tweet.text

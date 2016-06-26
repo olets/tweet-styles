@@ -8,6 +8,7 @@
     - links in the tweet
     - attached media (if `images` is 0 or true)
     - web intents
+    - avatar support
 
 */
 
@@ -69,6 +70,7 @@
     @twitter-ltgray: #f5f8fa;
     @twitter-black: #292f33;
     @twitter-blue: #0084B4;
+    @twitter-ltblue: #88c9f9;
     @twitter-hover-bg: @twitter-ltgray;
     @twitter-radius: 5px;
     @twitter-transition: 100ms;
@@ -77,9 +79,15 @@
     @twitter-border-weight: 1px;
     @twitter-border-style: solid;
     @twitter-border-color: @twitter-gray;
+    
     .twitter-meta-styles() {
         font-size: 13px;
         color: @twitter-dkgray;
+        .tweet-retweeted {
+            .tweet-badge {
+                fill: @twitter-dkgray
+            }
+        }
     }
     .twitter-meta-link-hover-styles() {
         color: @twitter-blue;
@@ -100,7 +108,7 @@
             text-decoration: underline
         }
     }
-    .twitter-date-separator-styles(){
+    .twitter-date-separator-styles() {
         &:before {
             content:'\2022'
         }
@@ -113,6 +121,14 @@
     // tweet styles
     // in almost all cases, these styles won't need to be fiddled with
     //
+    
+    .opacity(@factor) {// from https://github.com/JoelSutherland/LESS-Prefixer
+        @iefactor: @factor*100;
+        filter: ~"alpha(opacity=@{iefactor})";
+        opacity: @factor;
+    }
+
+
     position: relative;
     z-index: 0;
     @twitter-border: ~'@{tweet-border-weight} @{tweet-border-style} @{tweet-border-color}';
@@ -155,14 +171,48 @@
         background-clip: padding-box
     }
     
+    .tweet-verified {
+        width: 1em;
+        height: auto;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 2px;
+    }
+    .tweet-badge {
+        fill: @twitter-ltblue
+    }
+    
     .tweet-meta {
         margin-bottom: 10px;
-        .tweet-meta-styles
+        .tweet-meta-styles;
+        display: table;
     }
         .tweet-retweeted {
             display: block;
-            margin-bottom: 5px
+            margin-bottom: 5px;
+            &:hover {
+                *:not(.tweet-no-hover) {
+                    .tweet-meta-link-hover-styles;
+                }
+                .tweet-badge {
+                    fill: @twitter-ltblue
+                }
+            }
         }
+    
+    [class*='tweet-user'] {
+        display: table;
+    }
+    .tweet-user-avatar, .tweet-user-info {
+        display: table-cell;
+        vertical-align: top;
+    }
+    .tweet-user-avatar {
+        width: 36px;
+        img {
+            border-radius: @tweet-radius;
+        }
+    }   
         .tweet-user-name {
             .tweet-meta-user-name-styles
         }
@@ -172,6 +222,15 @@
         }
         .tweet-date {
             .tweet-date-styles
+        }
+    
+        .tweet-user-with-avatar {
+            .tweet-user-info {
+                padding-left: 10px
+            }
+            .tweet-user-name {
+                display: block
+            }
         }
     
     .tweet-text {
@@ -196,6 +255,7 @@
             height: auto
         }
     }
+    
     .tweet-intents {
         margin-top: 10px;
         a {
