@@ -9,6 +9,7 @@ v1.3.1 supports
 - links in the tweet
 - attached media (if `images` is 0 or true)
 - web intents
+- avatar support
     
 Useage:
 - Wrap a group of `.tweet`s in a `.tweets`
