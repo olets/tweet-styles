@@ -10,6 +10,7 @@ v1.4.1 supports
 - attached media (if `images` is "1" or true)
 - web intents
 - avatar support (if `avatars` is "1" or true)
+- verified users
     
 Useage:
 - Wrap a group of `.tweet`s in a `.tweets`
