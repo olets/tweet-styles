@@ -7,9 +7,9 @@ v1.3.1 supports
 - text tweets
 - retweets
 - links in the tweet
-- attached media (if `images` is 0 or true)
+- attached media (if `images` is "1" or true)
 - web intents
-- avatar support
+- avatar support (if `avatars` is "1" or true)
     
 Useage:
 - Wrap a group of `.tweet`s in a `.tweets`
