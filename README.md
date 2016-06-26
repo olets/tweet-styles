@@ -3,7 +3,7 @@ Tweet has two parts:
 - tweet.html.twig, the markup for a tweet
 - tweet.less, a stylesheet for styling the tweet partial
 
-v1.4 supports
+v1.4.1 supports
 - text tweets
 - retweets
 - links in the tweet
